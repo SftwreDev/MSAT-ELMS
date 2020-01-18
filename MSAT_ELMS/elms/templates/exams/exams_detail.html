@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ exams.title }} {% endblock title %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+{% if user.is_authenticated and user.is_student %}
+{% include 'side-nav.html' %}
+
+<div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col" style="margin-top: 8rem;">
+          <div class="card text-center" style="width: 40rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+              <h3 class="card-title">{{ exams.title }}</h3>
+              <p class="card-text"><span class="badge badge-danger">Category</span> : {{ exams.category }}</p>
+              {% if exams.single_attempt %}
+              <h5 class="text-muted">You will only get one attempt at this quiz</h5>
+              {% endif %}
+              <p class="card-text">{{ exams.description }}</p>
+              <a href="{% url 'exams_question' exams_name=exams.url %}" class="btn btn-primary" style="
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.26);">Start Exam</a>
+
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+{% endblock content %}

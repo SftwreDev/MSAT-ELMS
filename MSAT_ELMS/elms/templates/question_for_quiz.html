@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n%}
+{% block title %}{{ quiz.title }}{% endblock title %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+{% if user.is_authenticated and user.is_student %}
+{% include 'side-nav.html' %}
+
+<div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col" style="margin-top: 6rem;">
+      	{% if question %}
+          <div class="card" style="width: 50rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+          <div class="card-header">
+          	<p class="h3">Quizzes</p>
+          	<p class="font-weight-normal"><span class="badge badge-primary">Category</span> : {{ question.category }}</p>
+          	{% if progress %}
+				<div style="float: right;">
+					<p class="font-weight-light">Question {{ progress.0|add:1 }} of {{ progress.1 }}</p>
+				</div>
+			{% endif %}
+          </div>
+            <div class="card-body">
+              <h4 class="card-title">{{question.content}}</h4>
+              {% if question.figure %}
+								<img src="{{ question.figure.url }}" alt="{{ question.content }}" />
+							{% endif %}
+
+							<p class="card-text">
+								 <form action="" method="POST">{% csrf_token %}
+									<input type=hidden name="question_id" value="{{ question.id }}">
+
+									<ul class="list-group">
+
+									  {% for answer in form.answers %}
+										<li class="list-group-item">
+										  {{ answer }}
+										</li>
+									  {% endfor %}
+									</ul>
+
+									{% if progress.0|add:1 == progress.1 %}
+									<input type="submit" value={% trans "Submit" %} class="btn btn-large btn-block btn-success" >
+									{% else %}
+										<input type="submit" value={% trans "Next" %} class="btn btn-large btn-block btn-success" >
+									{% endif %}
+								  </form>
+							</p>
+              
+                {% endif %}
+
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+
+{% endif %}
+
+{% endblock content %}

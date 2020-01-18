@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Quiz Category{% endblock title %}
+
+{% block content %}
+{% include 'navbar.html' %}
+{% load crispy_forms_tags %}
+{% if user.is_teacher %}
+{% include 'side-nav.html' %}
+
+<div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col" style="margin-top: 8rem;">
+          <div class="card" style="width: 40rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+              <h3 class="card-title text-center"><div class="alert alert-primary" role="alert">
+  				Create the category for Quiz</div></h3>
+  				<form method="POST">
+        			{% csrf_token %}
+               <label for="exampleInputPassword1" class="h5">Category :</label>
+       			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Category" name="category">
+
+       			<hr>
+              <button type="submit" class="btn btn-primary btn-sm btn-block" style="
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.26);">Create category</button>
+          </form>
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+
+
+{% endblock content %}

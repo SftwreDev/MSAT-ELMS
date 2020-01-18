@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% load quiz_tags %}
+
+{% block title %} {{ quiz.title }} {% endblock title %}
+
+{% block content %}
+{% include 'navbar.html' %}
+{% if user.is_authenticated and user.is_student %}
+{% include 'side-nav.html' %}
+<div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col" style="margin-top: 6rem; margin-bottom: 3rem;">
+        {% if previous.answers %}
+          <div class="card" style="width: 50rem; font-size: 14px;">
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-header">
+                <p class="font-weight-bold">Previous Question</p>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><p class="font-weight-normal">Previous question : {{ previous.previous_question }}</p></h3>
+              <p class="font-weight-normal">Your answer was : {{ previous.previous_outcome|yesno:"correct, incorrect" }}</p>
+                {% include 'correct_answer.html' %}
+              <p class="font-weight-light">Explanation : 
+                <div class="well " style="background-color: #fcf8e3;">
+                  <p>{{ previous.previous_question.explanation }}</p>
+                </div>
+              </p>
+            </div>
+          </div>
+        {% endif %}
+      
+
+      {% if max_score %}
+
+      <div class="card" style="width: 50rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-header">
+                <p class="h2">Quiz Results</p>
+                <p>
+                  <span class="badge badge-primary">Exam Title</span> : {{ quiz.title }}
+                </p>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><p class="font-weight-normal">You answered {{ score }} questions correctly out of
+              {{ max_score }}, giving you {{ percent }} % correct. </p></h3>
+              <p class="font-weight-normal"><span class="badge badge-danger">Passing Score </span> : {{ quiz.pass_mark }}</p>
+              {% include 'correct_answer.html' %}
+              <hr>
+
+              {% if quiz.pass_mark %}
+                 <p class="lead">{{ sitting.result_message }}</p>
+              {% endif %}
+              
+              <p class="font-weight-light">Review the questions below and try the exam again in the future</p>
+
+              <p class="font-weight-light">The result of this quiz will be stored in your progress section so you can review and monitor your progression</p>
+
+              <hr>
+
+              {% if possible %}
+                <p class="font-weight-normal">Your session score is {{ session }} out of a possible {{ possible }}</p>
+              {% endif %}
+
+              {% if questions %}
+                {% for question in questions %}
+                  <p class="font-weight-normal">{{ question.content }}</p>
+
+                  {% correct_answer_for_all question %}
+                  {% if question.user_answer %}
+                  <p class="font-weight-normal">Your answer : {{ question|answer_choice_to_string:question.user_answer }}</p>
+                  {% endif %}
+
+                  <p class="font-weight-bold">Explanation : 
+                  <div class="well " style="background-color: #fcf8e3;">
+                  <p>{{ question.explanation|safe }}</p>
+                  </div>
+                </p>
+
+                <hr>
+
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+
+{% endif %}
+
+{% endblock content %}

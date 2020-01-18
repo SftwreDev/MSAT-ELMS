@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}MSAT | ELMS{% endblock title %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+{% if user.is_authenticated and user.is_student %}
+{% include 'side-nav.html' %}                
+            
+<div class="container">
+    <div class="row">
+      <div class="col-8">
+
+<!--H O M E P A G E   D E S I G N   H E R E-->
+
+      </div>
+
+        <div class="col-4" style="margin-top: 10rem;">
+          <div class="card text-center" style="box-shadow: 10px 10px 5px grey;">
+             <div class="card-header alert-danger">
+                Announcements
+             </div>
+            {% for obj in obj %}
+            <div class="announcement card-body">
+              <h5 class="card-title">{{ obj.title }}</h5>
+              <p class="card-text">{{ obj.content }}</p>
+              <a href="#" class="btn btn-outline-primary btn-sm">View Announcement</a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+    </div>
+</div>
+
+{% else %}
+{% include 'side-nav.html' %}  
+<div class="container">
+    <div class="row">
+      <div class="col-8">
+
+<!--H O M E P A G E   D E S I G N   H E R E-->
+
+      </div>
+
+        <div class="col-4" style="margin-top: 10rem;">
+          <div class="card text-center" style="box-shadow: 10px 10px 5px grey;">
+             <div class="card-header alert-danger">
+                To-Do List
+             </div>
+            {% for obj in obj %}
+            <div class="announcement card-body">
+              <h5 class="card-title">{{ obj.title }}</h5>
+              <p class="card-text">{{ obj.content }}</p>
+              <a href="#" class="btn btn-outline-primary btn-sm">View Announcement</a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

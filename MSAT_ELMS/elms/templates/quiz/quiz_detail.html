@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ quiz.title }} {% endblock title %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+{% if user.is_authenticated and user.is_student %}
+{% include 'side-nav.html' %}
+
+<div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col" style="margin-top: 8rem;">
+          <div class="card text-center" style="width: 40rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+              <h3 class="card-title">{{ quiz.title }}</h3>
+              <p class="card-text"><span class="badge badge-danger">Category</span> : {{ quiz.category }}</p>
+              {% if quiz.single_attempt %}
+              <h5 class="text-muted">You will only get one attempt at this quiz</h5>
+              {% endif %}
+              <p class="card-text">{{ quiz.description }}</p>
+              <a href="{% url 'quiz_question' quiz_name=quiz.url %}" class="btn btn-primary" style="
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.26);">Start Quiz</a>
+
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+
+{% endblock content %}

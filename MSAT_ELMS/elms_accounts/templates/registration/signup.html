@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm">
+
+		</div>
+
+		<div class="col-sm">
+
+			<div class="card text-center" style="width: 25rem;height: 20rem; padding-top: 3rem; margin-top: 10rem;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.28);">
+			  <div class="card-body">
+			    <h5 class="card-title">Sign up to have access to the <br>ELMS</h5>
+			    <p class="card-text">Select below the type of account you want to create</p>
+			    <a href="{% url 'accounts:student_signup' %}" class="btn btn-primary btn-sm" role="button">I'm a student</a>
+			 	<a href="{% url 'accounts:teacher_signup' %}" class="btn btn-danger btn-sm" role="button">I'm a teacher</a>
+			  </div>
+			</div>
+		</div>
+
+		<div class="col-sm">
+
+		</div>
+	</div>
+</div>
+
+
+  
+{% endblock %}

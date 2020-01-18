@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+{% if user.is_teacher %}
+{% include 'side-nav.html' %}
+
+<div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col" style="margin-top: 8rem; margin-bottom: 3rem;">
+          <div class="card" style="width: 40rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+              <h3 class="card-title text-center"><div class="alert alert-primary" role="alert">
+                Quiz Title</div></h3>
+                <hr>
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+               <hr>
+              <button type="submit" class="btn btn-primary btn-sm btn-block" style="
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.26);">Proceed creating Quiz Questions</button>
+            </form>
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}
